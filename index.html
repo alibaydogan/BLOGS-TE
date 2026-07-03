@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BYDMedia | Geleceğe Hazır Dijital Dönüşüm Ekosistemleri</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            transition: all 0.3s ease;
+        }
+        
+        /* KOYU MOD (Yeşil & Siyah) */
+        [data-theme="dark"] {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #121212;
+            --bg-card: #181818;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent: #10b981;
+            --accent-hover: #059669;
+            --border: #262626;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --nav-gradient: linear-gradient(135deg, rgba(10,10,10,0.95) 0%, rgba(16,185,129,0.15) 50%, rgba(10,10,10,0.95) 100%);
+            --terminal-bg: #050505;
+        }
+
+        /* AÇIK MOD (Sarı & Beyaz) */
+        [data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-card: #f3f4f6;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --accent: #eab308;
+            --accent-hover: #ca8a04;
+            --border: #e5e7eb;
+            --shadow: rgba(0, 0, 0, 0.05);
+            --nav-gradient: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(234,179,8,0.15) 50%, rgba(255,255,255,0.95) 100%);
+            --terminal-bg: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- ÖRÜMCEK AĞI ARKA PLAN (SPIDER WEB) --- */
+        #spider-canvas {
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh;
+            z-index: 900; 
+            pointer-events: none; 
+            opacity: 0.8; 
+        }
+
+        /* Üst Menü / Navigasyon */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--nav-gradient);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000; 
+            padding: 0 2rem;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: var(--text-primary);
+            cursor: pointer;
+            z-index: 1002;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            position: relative;
+            opacity: 0.8;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent);
+            opacity: 1;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+
+        /* Sağ Üst Butonlar */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 1002;
+        }
+
+        .theme-toggle-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-whatsapp-nav {
+            background: #25d366;
+            color: #ffffff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .btn-whatsapp-nav:hover {
+            background: #1ed760;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+        }
+
+        .mobile-menu-icon {
+            display: none;
+            cursor: pointer;
+            color: var(--text-primary);
+            z-index: 1002;
+        }
+
+        /* --- MOBİL UYUMLULUK (HEADER & GENEL) --- */
+        @media (max-width: 968px) {
+            header { padding: 0 1rem; }
+            nav {
+                position: fixed;
+                top: 0; left: 0;
+                width: 100%; height: 100vh;
+                background: var(--bg-primary);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transform: translateX(100%);
+                transition: transform 0.3s ease-in-out;
+                z-index: 1001;
+            }
+            nav.mobile-active {
+                transform: translateX(0);
+            }
+            .nav-links {
+                flex-direction: column;
+                font-size: 1.5rem;
+                text-align: center;
+                gap: 2rem;
+            }
+            .mobile-menu-icon {
+                display: block;
+            }
+            .theme-toggle-btn span, .btn-whatsapp-nav span {
+                display: none; /* Mobilde yazıları gizle */
+            }
+            .theme-toggle-btn, .btn-whatsapp-nav {
+                padding: 0;
+                width: 40px; height: 40px;
+                border-radius: 50%;
+                justify-content: center;
+            }
+            .header-right { gap: 0.5rem; }
+        }
+
+        .page-section {
+            display: none;
+            padding-top: 100px;
+            animation: fadeIn 0.4s ease-in-out forwards;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 3rem 1.25rem; }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            position: relative;
+            z-index: 10;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: #000000;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* --- ANA SAYFA --- */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+            padding: 6rem 2rem 4rem 2rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .hero-content {
+            flex: 1.1;
+            max-width: 650px;
+            text-align: left;
+            position: relative;
+            z-index: 5;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p.desc {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        .hero-features {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.05rem;
+            text-align: left;
+        }
+
+        .feature-item svg {
+            color: var(--accent);
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: flex-start;
+        }
+
+        .hero-image {
+            flex: 0.9;
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+            z-index: 5;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px var(--shadow);
+            border: 1px solid var(--border);
+            object-fit: cover;
+        }
+
+        @media (max-width: 968px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 4rem;
+                gap: 3rem;
+            }
+            .hero-content {
+                text-align: center;
+                max-width: 100%;
+            }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-features { 
+                align-items: flex-start; /* Mobilde de ikon ve yazılar düzenli dursun */
+                margin: 0 auto 3rem auto; 
+                max-width: 100%;
+            }
+            .hero-buttons { justify-content: center; flex-wrap: wrap; }
+            .hero-image { justify-content: center; }
+        }
+
+        /* Neden BYDMedia */
+        .why-us {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 5rem 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.25rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        @media (max-width: 768px) {
+            .section-title { font-size: 1.8rem; }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 2.5rem 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Müşteri Yorumları */
+        .testimonials-section {
+            padding: 5rem 0;
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+        }
+
+        .marquee-wrapper {
+            display: flex;
+            width: 100%;
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+            position: relative;
+            z-index: 5;
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 1.5rem;
+            animation: scrollMarquee 75s linear infinite;
+            padding: 1rem 0;
+        }
+
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .review-box {
+            flex-shrink: 0;
+            width: 320px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+
+        @media (max-width: 480px) {
+            .review-box { width: 280px; }
+        }
+
+        .review-stars {
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        .review-text {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            height: 70px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+        .review-author {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent);
+            border-top: 1px solid var(--border);
+            padding-top: 0.5rem;
+        }
+
+        /* Sıkça Sorulan Sorular */
+        .faq-section {
+            background-color: var(--bg-secondary);
+            padding: 5rem 0;
+            border-top: 1px solid var(--border);
+            position: relative;
+            z-index: 2;
+        }
+
+        .faq-max {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 5;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+        }
+
+        .faq-trigger {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            background: none;
+            border: none;
+            text-align: left;
+            color: var(--text-primary);
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-trigger svg {
+            transition: transform 0.3s;
+            color: var(--accent);
+            flex-shrink: 0;
+            margin-left: 1rem;
+        }
+
+        .faq-content {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease-out;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .faq-item.active .faq-trigger svg {
+            transform: rotate(180deg);
+        }
+
+        .faq-item.active .faq-content {
+            padding-bottom: 1.25rem;
+            max-height: 600px;
+        }
+
+        /* İletişim Formu */
+        .contact-section {
+            padding: 5rem 0;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 5;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+            resize: vertical;
+            position: relative;
+            z-index: 10;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent);
+        }
+
+        .btn-whatsapp {
+            width: 100%;
+            background-color: #25d366;
+            color: #ffffff;
+            border: none;
+            font-size: 1rem;
+            gap: 0.5rem;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #1ed760;
+            transform: translateY(-2px);
+        }
+
+        /* --- REFERANSLAR --- */
+        .sub-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
+        }
+
+        .sub-nav-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .sub-nav-btn.active, .sub-nav-btn:hover {
+            background: var(--accent);
+            color: #000000;
+            border-color: var(--accent);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        @media (max-width: 480px) {
+            .portfolio-grid { grid-template-columns: 1fr; }
+        }
+
+        .portfolio-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .portfolio-img-placeholder {
+            width: 100%;
+            height: 220px;
+            background: var(--bg-secondary);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .portfolio-img-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-card:hover .portfolio-img-placeholder img {
+            transform: scale(1.08);
+        }
+
+        .portfolio-info {
+            padding: 1.5rem;
+        }
+
+        .portfolio-tag {
+            display: inline-block;
+            background: rgba(var(--accent), 0.1);
+            color: var(--accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            border: 1px solid rgba(var(--accent), 0.2);
+        }
+
+        .portfolio-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+
+        /* --- BLOG YENİLİKLERİ --- */
+        
+        /* 1. Terminal Ekranı & Sözler (Fira Code) */
+        .terminal-wrapper {
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            background: #2d2d2d;
+            padding: 0.5rem 1rem;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 6px;
+        }
+        .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .terminal-title {
+            margin-left: 1rem;
+            color: #a0a0a0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+        }
+
+        .terminal-body {
+            background: var(--terminal-bg);
+            border: 1px solid var(--border);
+            border-top: none;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            height: 350px;
+            overflow-y: auto;
+            padding: 1.5rem;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            word-wrap: break-word; /* Mobilde kelimeleri taşmaması için kırar */
+        }
+
+        .terminal-body::-webkit-scrollbar { width: 8px; }
+        .terminal-body::-webkit-scrollbar-track { background: var(--bg-card); }
+        .terminal-body::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+        .quote-item {
+            font-family: 'Fira Code', monospace;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.5;
+            cursor: crosshair;
+            display: inline-block; /* Satırların düzgün dağılması için */
+        }
+
+        .quote-item::before {
+            content: "> ";
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Scatter Efekti İçin Harf Sınıfı */
+        .scatter-char {
+            display: inline-block;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
+        }
+
+        /* 2. Blog Ana Düzen */
+        .blog-layout {
+            display: grid;
+            grid-template-columns: 2.5fr 1fr;
+            gap: 3rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        @media (max-width: 968px) {
+            .blog-layout { grid-template-columns: 1fr; }
+        }
+
+        .blog-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .blog-list { grid-template-columns: 1fr; }
+        }
+
+        .blog-post {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px var(--shadow);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-post-img {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+
+        .blog-post-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .blog-post:hover .blog-post-img img {
+            transform: scale(1.08);
+        }
+
+        .blog-post-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-post-date {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-post-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .blog-post-excerpt {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        /* 3. Blog Sidebar ve Premium Kutular */
+        .blog-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            height: fit-content;
+            position: sticky;
+            top: 110px;
+        }
+
+        /* Radyan (Gradient) Kenarlıklı Premium Kutular */
+        .premium-box {
+            position: relative;
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            z-index: 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .premium-box:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Kutu 1 (Mavi-Yeşil Radyan) */
+        .premium-box-1::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--accent), #06b6d4, var(--accent));
+            z-index: -1;
+            opacity: 0.8;
+        }
+        .premium-box-1:hover::before { animation: spinGradient 3s linear infinite; }
+        .premium-box-1::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: var(--bg-card);
+            border-radius: 12px;
+            z-index: -1;
+        }
+
+        /* Kutu 2 (Turuncu-Kırmızı Radyan - İddialı Kutu) */
+        .premium-box-2::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #ef4444, #f59e0b, #ef4444);
+            z-index: -1;
+            opacity: 0.8;
+        }
+        .premium-box-2:hover::before { animation: spinGradient 3s linear infinite; }
+        .premium-box-2::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: var(--bg-card);
+            border-radius: 12px;
+            z-index: -1;
+        }
+
+        @keyframes spinGradient {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .sidebar-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Blog Slider */
+        .sidebar-carousel {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .carousel-item {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .carousel-item.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .carousel-item img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            color: #fff;
+            padding: 1rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        /* --- ÖN SİPARİŞ WIZARD --- */
+        .wizard-container {
+            max-width: 650px;
+            margin: 2rem auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px var(--shadow);
+            position: relative;
+            z-index: 5;
+        }
+
+        @media (max-width: 480px) {
+            .wizard-container { padding: 1.5rem; }
+            .wizard-step h3 { font-size: 1.2rem; }
+        }
+
+        .wizard-progress {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .wizard-progress::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 0; width: 100%; height: 2px;
+            background: var(--border);
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+
+        .progress-step {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            z-index: 2;
+            transition: all 0.3s;
+            color: var(--text-secondary);
+        }
+
+        .progress-step.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #000000;
+        }
+
+        .wizard-step {
+            display: none;
+        }
+
+        .wizard-step.active {
+            display: block;
+        }
+
+        .wizard-step h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 480px) {
+            .options-grid { grid-template-columns: 1fr; }
+        }
+
+        .option-card {
+            background: var(--bg-primary);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s;
+            position: relative;
+            z-index: 10;
+        }
+
+        .option-card:hover {
+            border-color: var(--accent);
+        }
+
+        .option-card.selected {
+            border-color: var(--accent);
+            background: rgba(var(--accent), 0.05);
+            color: var(--accent);
+        }
+
+        .wizard-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* En alt kısım (Footer) */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            background-color: var(--bg-secondary);
+            position: relative;
+            z-index: 1000; 
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ETKİLEŞİMLİ ÖRÜMCEK AĞI ARKA PLANI (SPIDER WEB) -->
+    <canvas id="spider-canvas"></canvas>
+
+    <!-- ÜST MENÜ -->
+    <header>
+        <div class="nav-container">
+            <div class="logo" onclick="switchTab('home')">BYD<span>Media</span></div>
+            
+            <nav id="main-nav">
+                <ul class="nav-links">
+                    <li><a onclick="switchTab('home')" id="nav-home" class="active">Ana sayfa</a></li>
+                    <li><a onclick="switchTab('references')" id="nav-references">Referanslar</a></li>
+                    <li><a onclick="switchTab('blog')" id="nav-blog">Blog</a></li>
+                    <li><a onclick="switchTab('preorder')" id="nav-preorder">Ön Sipariş</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-right">
+                <button class="theme-toggle-btn" onclick="toggleTheme()">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2a.5.5 0 0 1 .5-.5zM0 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 0 8zm13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zM2.223 2.223a.5.5 0 0 1 .708 0l1.414 1.414a.5.5 0 1 1-.708.708L2.223 2.93a.5.5 0 0 1 0-.708zm10.163 10.163a.5.5 0 0 1 .708 0l1.414 1.414a.5.5 0 1 1-.708.708l-1.414-1.414a.5.5 0 0 1 0-.708zm0-10.163a.5.5 0 0 1 0 .708l-1.414 1.414a.5.5 0 1 1-.708-.708l1.414-1.414a.5.5 0 0 1 .708 0zm-10.163 10.163a.5.5 0 0 1 0 .708l-1.414 1.414a.5.5 0 1 1-.708-.708l1.414-1.414a.5.5 0 0 1 .708 0z"/>
+                    </svg>
+                    <span>Tema</span>
+                </button>
+                <button class="btn-whatsapp-nav" onclick="contactNavWhatsApp()">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.69-4.98c-.202-.101-1.194-.588-1.378-.654-.185-.066-.32-.099-.454.101-.132.199-.513.654-.629.789-.117.135-.233.151-.435.051-1.425-.713-2.322-1.3-3.245-2.888-.243-.417.243-.387.696-1.29.075-.15.038-.281-.019-.382-.057-.101-.453-1.09-.62-1.499-.163-.393-.327-.339-.45-.346-.118-.006-.254-.006-.391-.006-.137 0-.36.051-.548.256-.188.205-.717.701-.717 1.709 0 1.008.734 1.984.836 2.12.101.135 1.442 2.201 3.493 3.085.488.21 1.002.337 1.353.449.49.155.936.133 1.288.08.393-.059 1.194-.488 1.362-.958.168-.47.168-.872.118-.957-.05-.086-.186-.138-.388-.239z"/>
+                    </svg>
+                    <span>İletişime Geç</span>
+                </button>
+                <div class="mobile-menu-icon" onclick="toggleMobileMenu()">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ANA SAYFA EKRANI -->
+    <main id="section-home" class="page-section active">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Kağıt kalemi bırakıp <span>dijitale odaklanın</span></h1>
+                <p class="desc">BYDMedia olarak; markanızın operasyonlarını uçtan uca dijitalleştiren ölçeklenebilir özel yazılımlar, yüksek dönüşümlü global e-ticaret ekosistemleri ve geleceğe hazır kurumsal teknolojiler inşa ediyoruz.</p>
+                
+                <div class="hero-features">
+                    <div class="feature-item">
+                        <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                        Performans ve Arama Motoru (SEO) Odaklı Kodlama
+                    </div>
+                    <div class="feature-item">
+                        <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                        Kolay Yönetilebilir Akıllı Arayüz Panelleri
+                    </div>
+                    <div class="feature-item">
+                        <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                        Tüm Cihazlarla %100 Uyumlu Mobil Odaklı (Responsive) Tasarım
+                    </div>
+                    <div class="feature-item">
+                        <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                        Üst Düzey Veri Güvenliği ve Modern Bulut Altyapısı
+                    </div>
+                    <div class="feature-item">
+                        <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                        Global Pazarlara Entegre Ölçeklenebilir E-Ticaret Çözümleri
+                    </div>
+                </div>
+
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="switchTab('preorder')">Projeye başla</button>
+                    <button class="btn btn-secondary" onclick="switchTab('references')">Çalışmalarımızı gör</button>
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dijital Dönüşüm Ekranı">
+            </div>
+        </section>
+
+        <!-- Neden BYDMedia -->
+        <section class="why-us">
+            <div class="container">
+                <h2 class="section-title">Neden BYDMedia?</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">Mutlu Müşteri</div>
+                        <div class="stat-desc">Küresel ve yerel pazarda başarıya ulaştırdığımız iş ortaklarımız.</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">%98</div>
+                        <div class="stat-label">Başarı Oranı</div>
+                        <div class="stat-desc">Zamanında ve tam kapsamlı taahhüt edilen teslimat güvencesi.</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">7/24</div>
+                        <div class="stat-label">Kesintisiz Hizmet</div>
+                        <div class="stat-desc">Kritik sistemleriniz ve altyapınız için sürekli teknik destek.</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">Maksimum</div>
+                        <div class="stat-label">Performans</div>
+                        <div class="stat-desc">PageSpeed skorlarında en üst düzey hız ve kusursuz optimizasyon.</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">Modern</div>
+                        <div class="stat-label">Teknoloji Yığını</div>
+                        <div class="stat-desc">Sektörün en güncel framework ve dilleriyle temiz kod mimarisi.</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">UI/UX</div>
+                        <div class="stat-label">Odaklı Yaklaşım</div>
+                        <div class="stat-desc">Kullanıcı deneyimini merkeze alan, dönüşüm artıran akıllı tasarımlar.</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">Şeffaf</div>
+                        <div class="stat-label">Süreç Yönetimi</div>
+                        <div class="stat-desc">Projenin her aşamasında anlık bilgilendirme ve onaylı ilerleme.</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">Geleceğe</div>
+                        <div class="stat-label">Hazır Mimari</div>
+                        <div class="stat-desc">Gelişime açık, ölçeklenebilir ve yenilikçi yazılım altyapıları.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Müşteri Yorumları -->
+        <section class="testimonials-section">
+            <h2 class="section-title">Müşteri Yorumları</h2>
+            <div class="marquee-wrapper">
+                <div class="marquee-track" id="marquee-container">
+                    <!-- JS dinamik olarak yorum üretecek -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Sıkça Sorulan Sorular -->
+        <section class="faq-section">
+            <div class="container faq-max">
+                <h2 class="section-title">Sıkça Sorulan Sorular</h2>
+                <div id="faq-container"></div>
+            </div>
+        </section>
+
+        <!-- İletişim Formu -->
+        <section class="contact-section">
+            <h2 class="section-title">Başka sorunuz mu var?</h2>
+            <div class="form-group">
+                <label for="contact-msg">Mesajınız</label>
+                <textarea id="contact-msg" class="form-control" rows="5" placeholder="Sorunuzu veya projenizi buraya detaylıca yazabilirsiniz..."></textarea>
+            </div>
+            <button class="btn btn-whatsapp" onclick="sendContactWhatsApp()">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.69-4.98c-.202-.101-1.194-.588-1.378-.654-.185-.066-.32-.099-.454.101-.132.199-.513.654-.629.789-.117.135-.233.151-.435.051-1.425-.713-2.322-1.3-3.245-2.888-.243-.417.243-.387.696-1.29.075-.15.038-.281-.019-.382-.057-.101-.453-1.09-.62-1.499-.163-.393-.327-.339-.45-.346-.118-.006-.254-.006-.391-.006-.137 0-.36.051-.548.256-.188.205-.717.701-.717 1.709 0 1.008.734 1.984.836 2.12.101.135 1.442 2.201 3.493 3.085.488.21 1.002.337 1.353.449.49.155.936.133 1.288.08.393-.059 1.194-.488 1.362-.958.168-.47.168-.872.118-.957-.05-.086-.186-.138-.388-.239z"/>
+                </svg>
+                WhatsApp ile Gönder
+            </button>
+        </section>
+    </main>
+
+    <!-- REFERANSLAR EKRANI -->
+    <section id="section-references" class="page-section">
+        <div class="container">
+            <h2 class="section-title">Öne Çıkan Çalışmalarımız</h2>
+            
+            <div class="sub-nav">
+                <button class="sub-nav-btn active" onclick="filterReferences('all')">Tümü</button>
+                <button class="sub-nav-btn" onclick="filterReferences('ozel-yazilim')">Özel Yazılım Geliştirme</button>
+                <button class="sub-nav-btn" onclick="filterReferences('mobil')">Mobil Uygulama Geliştirme</button>
+                <button class="sub-nav-btn" onclick="filterReferences('ui-ux')">UI/UX Tasarımı</button>
+                <button class="sub-nav-btn" onclick="filterReferences('e-ticaret')">Global E-Ticaret</button>
+            </div>
+
+            <!-- Tam 30 Adet Tekrarsız Proje Buraya Yüklenecek -->
+            <div class="portfolio-grid" id="portfolio-container"></div>
+        </div>
+    </section>
+
+    <!-- BLOG EKRANI -->
+    <section id="section-blog" class="page-section">
+        <div class="container">
+            
+            <!-- Yazılımcı Manifestosu (Terminal Dağılan Harfler Efekti) -->
+            <div class="terminal-wrapper">
+                <div class="terminal-header">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot dot-red"></div>
+                        <div class="terminal-dot dot-yellow"></div>
+                        <div class="terminal-dot dot-green"></div>
+                    </div>
+                    <div class="terminal-title">yazilimci-manifestosu.js</div>
+                </div>
+                <div class="terminal-body" id="quotes-container">
+                    <!-- JS ile 30 söz ve harf dağılma efekti buraya gelecek -->
+                </div>
+            </div>
+
+            <div class="blog-layout">
+                <div class="blog-list" id="blog-container">
+                    <!-- JS dinamik olarak sektörel blog haberleri üretecek -->
+                </div>
+                
+                <div class="blog-sidebar">
+                    <!-- Yapraklı/Geçişli Blog Slider -->
+                    <div class="sidebar-carousel" id="blog-slider">
+                        <div class="carousel-item active">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80" alt="Slider 1">
+                            <div class="carousel-caption">Yapay Zeka Mimarisinde Yeni Dönem</div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=400&q=80" alt="Slider 2">
+                            <div class="carousel-caption">E-Ticarette Dönüşümü Artıran UX Sırları</div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80" alt="Slider 3">
+                            <div class="carousel-caption">Temiz Kod ile SEO Performansını Katlayın</div>
+                        </div>
+                    </div>
+
+                    <!-- Radyan Çizgili Premium Kutu 1 -->
+                    <div class="premium-box premium-box-1">
+                        <h3 class="sidebar-title">BYDMedia Blog Hakkında</h3>
+                        <p class="sidebar-text">Teknolojinin nabzını tutuyor, kod satırlarının ötesine geçerek dijital dünyayı şekillendiren en güncel trendleri, yazılım mimarilerini ve dönüşüm stratejilerini paylaşıyoruz. Bilgi paylaşıldıkça büyür, vizyonumuzla geleceği bugünden inşa ediyoruz.</p>
+                    </div>
+
+                    <!-- Radyan Çizgili Premium Kutu 2 (İddialı Başlık) -->
+                    <div class="premium-box premium-box-2">
+                        <h3 class="sidebar-title" style="color: #f59e0b;">Hazır Şablonları Yıkarak Yeniden İnşa Ediyoruz!</h3>
+                        <p class="sidebar-text">Sıradanlığa ve birbirinin kopyası projelere meydan okuyoruz. Kopyala-yapıştır çözümlerin devri bitti. BYDMedia olarak; sadece markanızın DNA'sına işleyen, rekabeti sıfırlayan tamamen özgün kod mimarileri ve vizyoner arayüz tasarımlarıyla dijital sınırları baştan çiziyoruz.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ÖN SİPARİŞ EKRANI -->
+    <section id="section-preorder" class="page-section">
+        <div class="container">
+            <h2 class="section-title">Hizmet Seçimi</h2>
+            
+            <div class="wizard-container">
+                <div class="wizard-progress">
+                    <div class="progress-step active" id="step-dot-1">1</div>
+                    <div class="progress-step" id="step-dot-2">2</div>
+                    <div class="progress-step" id="step-dot-3">3</div>
+                </div>
+
+                <!-- Adım 1: Hizmet -->
+                <div class="wizard-step active" id="wizard-step-1">
+                    <h3>Hangi Alanda Çözüm Arıyorsunuz?</h3>
+                    <div class="options-grid">
+                        <div class="option-card" onclick="selectService('E-Ticaret', this)">E-Ticaret</div>
+                        <div class="option-card" onclick="selectService('Özel Yazılım', this)">Özel Yazılım</div>
+                        <div class="option-card" onclick="selectService('Kurumsal Portal', this)">Kurumsal Portal</div>
+                        <div class="option-card" onclick="selectService('Bütünsel Markalama', this)">Bütünsel Markalama</div>
+                    </div>
+                    <div class="wizard-buttons" style="justify-content: flex-end;">
+                        <button class="btn btn-primary" onclick="nextStep(2)">İleri</button>
+                    </div>
+                </div>
+
+                <!-- Adım 2: İletişim -->
+                <div class="wizard-step" id="wizard-step-2">
+                    <h3>İletişim Bilgileriniz</h3>
+                    <div class="form-group">
+                        <label>AD SOYAD</label>
+                        <input type="text" id="w-name" class="form-control" placeholder="Adınız Soyadınız">
+                    </div>
+                    <div class="form-group">
+                        <label>E-posta Adresi</label>
+                        <input type="email" id="w-email" class="form-control" placeholder="ornek@alanadi.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Telefon Numarası</label>
+                        <input type="tel" id="w-phone" class="form-control" placeholder="05xx xxx xx xx">
+                    </div>
+                    <div class="form-group">
+                        <label>Şehir/Ülke</label>
+                        <input type="text" id="w-location" class="form-control" placeholder="İstanbul / Türkiye">
+                    </div>
+                    <div class="wizard-buttons">
+                        <button class="btn btn-secondary" onclick="prevStep(1)">Geri</button>
+                        <button class="btn btn-primary" onclick="nextStep(3)">Devam Et</button>
+                    </div>
+                </div>
+
+                <!-- Adım 3: Proje Detayı -->
+                <div class="wizard-step" id="wizard-step-3">
+                    <h3>Projenizi Anlatın</h3>
+                    <div class="form-group">
+                        <label>Proje Detayları ve Hedefleriniz</label>
+                        <textarea id="w-details" class="form-control" rows="6" placeholder="Fikirlerinizi, hedef kitlenizi ve hayalinizdeki yapıyı sınır olmadan detaylandırın..."></textarea>
+                    </div>
+                    <div class="wizard-buttons">
+                        <button class="btn btn-secondary" onclick="prevStep(2)">Geri</button>
+                        <button class="btn btn-primary" style="background-color: #25d366; color: white;" onclick="submitPreOrder()">Gönder (WhatsApp)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 BYDMedia. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <script>
+        // --- 1. ETKİLEŞİMLİ ÖRÜMCEK AĞI (SPIDER WEB) ---
+        const canvas = document.getElementById('spider-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        const mouse = { x: null, y: null, radius: 180 };
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        document.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+        document.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = (Math.random() - 0.5) * 1.5;
+                this.radius = 2.5;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx = -this.vx;
+                if (this.y < 0 || this.y > height) this.vy = -this.vy;
+            }
+            draw(color) {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 90; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            const colorBase = isDark ? '16, 185, 129' : '234, 179, 8';
+
+            particles.forEach(p => {
+                p.update();
+                p.draw(`rgba(${colorBase}, 0.8)`);
+            });
+
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 130) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(${colorBase}, ${0.5 - dist/260})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+                if (mouse.x != null) {
+                    const dx = particles[i].x - mouse.x;
+                    const dy = particles[i].y - mouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < mouse.radius) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(${colorBase}, ${0.8 - dist/(mouse.radius*1.2)})`;
+                        ctx.lineWidth = 1.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // --- 2. SAYFA VE İÇERİK YÖNETİMİ ---
+        document.addEventListener('DOMContentLoaded', () => {
+            generateComments();
+            generateFaq();
+            generatePortfolio();
+            generateBlog();
+            startBlogSlider();
+            initScatterQuotes();
+        });
+
+        // Mobil Menüyü Aç/Kapat
+        window.toggleMobileMenu = function() {
+            document.getElementById('main-nav').classList.toggle('mobile-active');
+        };
+
+        function switchTab(target) {
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            document.getElementById('section-' + target).classList.add('active');
+            if(document.getElementById('nav-' + target)) {
+                document.getElementById('nav-' + target).classList.add('active');
+            }
+            // Linke tıklanınca mobil menüyü kapat
+            document.getElementById('main-nav').classList.remove('mobile-active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+        }
+
+        // Navbar WhatsApp Butonu Özel Fonksiyonu
+        window.contactNavWhatsApp = function() {
+            const msg = "Merhaba,bilgi almak istiyorum.";
+            window.open(`https://wa.me/905437677317?text=${encodeURIComponent(msg)}`, '_blank');
+        };
+
+        // --- 3. REFERANSLAR (TAM 30 FARKLI VE UYGUN PROJE) ---
+        function generatePortfolio() {
+            const catLabels = { 'ozel-yazilim': 'Özel Yazılım', 'mobil': 'Mobil Uygulama', 'ui-ux': 'UI/UX', 'e-ticaret': 'E-Ticaret' };
+            const techProjects = [
+                { id: "1460925895917-afdab827c52f", cat: "ozel-yazilim", title: "B2B Sipariş Dashboard", desc: "Bayi ve stok verilerini anlık analiz eden kurumsal panel." },
+                { id: "1556742049-0cfed4f6a45d", cat: "e-ticaret", title: "Global Ödeme Sistemi", desc: "Sınır ötesi işlemleri kusursuzlaştıran e-ticaret altyapısı." },
+                { id: "1616077168079-7e09a677fb2c", cat: "mobil", title: "Fintech Mobil Cüzdan", desc: "Kullanıcı dostu, yüksek güvenlikli finans uygulaması." },
+                { id: "1507238691740-187a5b1d37b8", cat: "ui-ux", title: "Marka Arayüz Modernizasyonu", desc: "Minimalist, tipografi odaklı şık kurumsal web tasarımı." },
+                { id: "1576091160399-112ba8d25d1d", cat: "ozel-yazilim", title: "Klinik Randevu Otomasyonu", desc: "Sağlık sektörü için geliştirilmiş hasta kayıt sistemi." },
+                { id: "1501504905252-473c47e087f8", cat: "ozel-yazilim", title: "Online Eğitim LMS", desc: "Canlı yayın ve sertifikasyon destekli eğitim portalı." },
+                { id: "1560518883-ce09059eeffa", cat: "e-ticaret", title: "Gayrimenkul Portal", desc: "Harita entegrasyonlu ve hızlı çalışan emlak arama motoru." },
+                { id: "1565299624946-b28f40a0ae38", cat: "mobil", title: "Restoran Paket Servis App", desc: "Şube bazlı sipariş yönetimi sağlayan yerel mobil çözüm." },
+                { id: "1486262715619-67b85e0b08d3", cat: "e-ticaret", title: "Otomotiv B2C Satış Ağı", desc: "Şasi numarası uyumluluk filtreli yedek parça mağazası." },
+                { id: "1551288049-bebda4e38f71", cat: "ui-ux", title: "IoT Sensör Kontrol Paneli", desc: "Fabrika verilerini saniye saniye okuyan temiz arayüz." },
+                { id: "1512941937669-90a1b58e7e9c", cat: "mobil", title: "Kurye Rota Takibi", desc: "Gerçek zamanlı harita izleme sunan lojistik uygulaması." },
+                { id: "1498050108023-c5249f4df085", cat: "ozel-yazilim", title: "API Yönetim Merkezi", desc: "Üçüncü parti servisleri tek bir noktada buluşturan gateway." },
+                { id: "1555066931-4365d14bab8c", cat: "ozel-yazilim", title: "Sunucu İzleme Yazılımı", desc: "Siber güvenlik açıkları ve yük dengeleme raporları sunan araç." },
+                { id: "1504639725590-34d0984388bd", cat: "ui-ux", title: "SaaS Çoklu Ekran Arayüz", desc: "Bulut tabanlı yazılımlar için karmaşık veriyi basitleştiren UX." },
+                { id: "1587620962725-abab7fe55159", cat: "mobil", title: "Sosyal Ağ Entegrasyonu", desc: "Görüntülü görüşme altyapılı, mesajlaşma odaklı ağ uygulaması." },
+                { id: "1551650919-054f2c0ce643", cat: "ui-ux", title: "Wireframe & Prototip", desc: "Büyük veri odaklı şirketler için 0'dan çizilen proje prototipi." },
+                { id: "1607799279861-4dd9118d0706", cat: "e-ticaret", title: "Moda & Giyim Mağazası", desc: "Karanlık mod destekli, dönüşüm odaklı butik alışveriş sitesi." },
+                { id: "1522881115392-ce89053e1628", cat: "e-ticaret", title: "B2B Toptan Sipariş", desc: "Toplu alımlar için özel fiyatlandırma algoritmalı yapı." },
+                { id: "1531403009284-440f080d1e12", cat: "ozel-yazilim", title: "Bulut Yedekleme Çözümü", desc: "Veritabanı güvenliği için tasarlanmış otomatik yedekleme aracı." },
+                { id: "1581091226825-a6a2a5aee158", cat: "ui-ux", title: "Mobil Oyun Arayüzü", desc: "Menü ve mağaza sistemlerini barındıran akıcı oyun UI'ı." },
+                { id: "1550439062-609e1531270e", cat: "mobil", title: "Saha Personel Takip", desc: "Tablet ve telefon uyumlu, konum tabanlı raporlama yazılımı." },
+                { id: "1461749280684-dccba630e2f6", cat: "ozel-yazilim", title: "AI Makine Öğrenimi Botu", desc: "Müşteri verisini analiz edip davranış tahmini yapan yapay zeka." },
+                { id: "1522542511978-57778b66daec", cat: "ozel-yazilim", title: "ERP Veri Göçü Planlayıcı", desc: "Eski sistemlerden yeni nesil buluta güvenli veri taşıma altyapısı." },
+                { id: "1451187580459-43490279c0fa", cat: "ui-ux", title: "İnsan Kaynakları Portalı", desc: "İşe alım ve personel performans takiplerini basitleştiren ekranlar." },
+                { id: "1618761714954-0b8cd0026356", cat: "ui-ux", title: "Kripto Borsa Analiz", desc: "Hisse ve coin grafiklerini sıfır gecikme ile yansıtan analiz aracı." },
+                { id: "1517694712202-14dd9538aa97", cat: "mobil", title: "Eğitim Asistanı App", desc: "Öğrenciler için pomodoro ve ders notu takibi yapan uygulama." },
+                { id: "1454165804606-c3d57bc86b40", cat: "e-ticaret", title: "CRM Entegre Pazaryeri", desc: "Kullanıcı hareketlerini CRM'e ileten akıllı e-ticaret köprüsü." },
+                { id: "1504384308090-c894fdcc538d", cat: "ozel-yazilim", title: "Kargo Lojistik Ağı", desc: "Depo stoklarından kurye dağıtımına kadar uçtan uca takip." },
+                { id: "1563986768494-4dee2763ff0f", cat: "ozel-yazilim", title: "Siber Güvenlik Duvarı", desc: "DDoS saldırılarına karşı firmaya özel kurgulanan filtreleme sistemi." },
+                { id: "1503437313624-1f0161d90479", cat: "mobil", title: "Akıllı Ev (SmartHome)", desc: "Aydınlatma ve ısıtmayı tek dokunuşla yöneten mobil mimari." }
+            ];
+
+            const portfolioContainer = document.getElementById('portfolio-container');
+            techProjects.forEach((project) => {
+                const imgUrl = `https://images.unsplash.com/photo-${project.id}?auto=format&fit=crop&w=600&q=80`;
+                const card = document.createElement('div');
+                card.className = `portfolio-card reference-item ${project.cat}`;
+                card.innerHTML = `<div class="portfolio-img-placeholder"><img src="${imgUrl}" alt="${project.title}" loading="lazy"></div><div class="portfolio-info"><span class="portfolio-tag">${catLabels[project.cat]}</span><h4 class="portfolio-title">${project.title}</h4><p class="portfolio-desc">${project.desc}</p></div>`;
+                portfolioContainer.appendChild(card);
+            });
+        }
+
+        window.filterReferences = function(cat) {
+            document.querySelectorAll('.sub-nav-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('.reference-item').forEach(item => {
+                item.style.display = (cat === 'all' || item.classList.contains(cat)) ? 'block' : 'none';
+            });
+        };
+
+        // --- 4. BLOG İÇERİKLERİ ---
+        function generateBlog() {
+            const blogData = [
+                { date: "14 Haziran 2026", title: "Yapay Zeka (AI) Destekli Özel Yazılımlar Şirketlere Neler Kazandırıyor?", desc: "Veri analizinden müşteri hizmetleri otomasyonuna kadar yapay zekanın kurumsal yazılımlara entegrasyonu.", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" },
+                { date: "02 Haziran 2026", title: "2026 Yılında E-Ticarette Dönüşüm Oranlarını Uçuran 5 UX Trendi", desc: "Sepet terk etme oranlarını en aza indiren modern ödeme adımları ve karanlık mod destekleri.", img: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=600&q=80" },
+                { date: "24 Mayıs 2026", title: "Mobil Uygulama Geliştirmede Cross-Platform vs. Native Yaklaşımı", desc: "Flutter ve React Native mi yoksa Swift/Kotlin mi? İhtiyaçlara göre doğru teknoloji seçimi.", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=600&q=80" },
+                { date: "10 Mayıs 2026", title: "Core Web Vitals ve Teknik SEO: Temiz Kod Neden Önemli?", desc: "Kodun hafifliği ve render hızı artık içerik kadar önemli. Hızlı siteler Google'da kazanıyor.", img: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80" }
+            ];
+            const blogContainer = document.getElementById('blog-container');
+            blogData.forEach((post) => {
+                const article = document.createElement('article');
+                article.className = 'blog-post';
+                article.innerHTML = `<div class="blog-post-img"><img src="${post.img}" alt="${post.title}" loading="lazy"></div><div class="blog-post-content"><div class="blog-post-date">${post.date}</div><h3 class="blog-post-title">${post.title}</h3><p class="blog-post-excerpt">${post.desc}</p><a href="javascript:void(0)" style="color: var(--accent); font-weight:700; text-decoration:none;">Devamını Oku &rarr;</a></div>`;
+                blogContainer.appendChild(article);
+            });
+        }
+
+        function startBlogSlider() {
+            const slides = document.querySelectorAll('.carousel-item');
+            if(slides.length === 0) return;
+            let currentIndex = 0;
+            setInterval(() => {
+                slides[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex + 1) % slides.length;
+                slides[currentIndex].classList.add('active');
+            }, 3500);
+        }
+
+        // --- 5. TERMİNAL DAĞILAN SÖZLER (SCATTER EFEKTİ) ---
+        function initScatterQuotes() {
+            const quotes = [
+                "Konuşmak ucuzdur. Bana kodu göster. - Linus Torvalds",
+                "Kod espri gibidir. Açıklamak zorundaysan, kötüdür. - Cory House",
+                "Her aptal bilgisayarın anlayabileceği kodu yazar. İyi yazılımcı insanın anlayacağı kodu yazar. - Martin Fowler",
+                "Önce problemi çöz. Sonra kodu yaz. - John Johnson",
+                "Temiz kod her zaman ona değer veren biri tarafından yazılmış gibi görünür. - Michael Feathers",
+                "Hatalarınızı sadece siz bilemezsiniz, bilgisayar asla yalan söylemez.",
+                "Programlama, makinelere nasıl düşüneceklerini öğretme sanatıdır.",
+                "Dünyadaki en iyi hata ayıklama aracı, iyi bir gece uykusudur.",
+                "Eğer kodun çalışıyorsa, dokunma!",
+                "Bugün yazdığın kod, yarınki senin kurtarıcın olabilir.",
+                "Bazen en iyi kod, hiç yazılmamış olan koddur.",
+                "İyi bir yazılımcı her zaman gelecekte kodu okuyacak kişiyi düşünür.",
+                "Sadelik, güvenilirliğin ön koşuludur. - Edsger W. Dijkstra",
+                "Sistemin çalışmasını sağlayan şey, içindeki görünmez düzendir.",
+                "Bilgisayarlar çok hızlıdır, ancak bizim kadar zeki değillerdir.",
+                "Mükemmellik, eklenecek bir şey kalmadığında değil, çıkarılacak bir şey kalmadığında elde edilir.",
+                "Ölçemediğiniz şeyi iyileştiremezsiniz.",
+                "Bir sistemi kırmanın en iyi yolu, onu anlamaya çalışmaktır.",
+                "Gerçek programcılar yorum yazmazlar. Kod açıksa, yoruma gerek yoktur.",
+                "Teknoloji, evrenin sınırlarını genişleten en güçlü araçtır.",
+                "Eğer her şey çok kolay gidiyorsa, muhtemelen bir hata yapıyorsundur.",
+                "Donanım, yazılımın can bulduğu bedendir.",
+                "Yazılım geliştirme, zihinsel bir satranç oyunudur.",
+                "Çalışan bir sistem, sıfırdan yazılmış teorik bir sistemden her zaman daha değerlidir.",
+                "Kodlama dilleri geçicidir, ancak algoritmik düşünce kalıcıdır.",
+                "Sorunu anlamak, çözümün yarısıdır.",
+                "Hata (bug), sadece doğru yerde olmayan bir özelliktir.",
+                "Büyük sistemler, küçük ve çalışan sistemlerin evrimleşmesiyle oluşur.",
+                "Kod satırları, modern dünyanın tuğlalarıdır.",
+                "Geleceği tahmin etmenin en iyi yolu, onu icat etmektir. - Alan Kay"
+            ];
+
+            const container = document.getElementById('quotes-container');
+            
+            quotes.forEach(qText => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'quote-item';
+                
+                let html = '';
+                for(let i=0; i<qText.length; i++) {
+                    if(qText[i] === ' ') {
+                        html += `<span>&nbsp;</span>`;
+                    } else {
+                        html += `<span class="scatter-char">${qText[i]}</span>`;
+                    }
+                }
+                qDiv.innerHTML = html;
+                container.appendChild(qDiv);
+
+                qDiv.addEventListener('mouseenter', () => {
+                    const chars = qDiv.querySelectorAll('.scatter-char');
+                    chars.forEach(char => {
+                        const rx = (Math.random() - 0.5) * 80; 
+                        const ry = (Math.random() - 0.5) * 80; 
+                        const rz = (Math.random() - 0.5) * 180;
+                        char.style.transform = `translate(${rx}px, ${ry}px) rotate(${rz}deg)`;
+                        char.style.color = 'var(--accent)';
+                        char.style.opacity = '0.7';
+                    });
+                });
+
+                qDiv.addEventListener('mouseleave', () => {
+                    const chars = qDiv.querySelectorAll('.scatter-char');
+                    chars.forEach(char => {
+                        char.style.transform = `translate(0, 0) rotate(0)`;
+                        char.style.color = '';
+                        char.style.opacity = '1';
+                    });
+                });
+            });
+        }
+
+        // --- DİĞER KISA FONKSİYONLAR ---
+        function generateComments() {
+            const commentsData = [
+                { name: "Ahmet Yılmaz", text: "BYDMedia ile e-ticaret sitemizi yeniledik. Satış dönüşüm oranlarımız ilk aydan %40 arttı!" },
+                { name: "Canan Demir", text: "Özel yazılım altyapısı konusunda kusursuz bir mimari sundular. Paneller çok kolay ve akıllıca." },
+                { name: "Mustafa Kaya", text: "SEO entegrasyonu sayesinde Google aramalarında ilk sayfaya tırmandık. Teşekkürler BYDMedia." },
+                { name: "Elif Şahin", text: "Zamanında teslimat ve 7/24 kesintisiz destek sözlerini sonuna kadar tutuyorlar." },
+                { name: "Serkan Çelik", text: "Mobil uygulamamız tam zamanında ve sıfır hata ile yayına alındı. Harika bir UI/UX deneyimi!" }
+            ];
+            const marqueeTrack = document.getElementById('marquee-container');
+            const doubleComments = [...commentsData, ...commentsData, ...commentsData, ...commentsData]; 
+            doubleComments.forEach(item => {
+                const box = document.createElement('div');
+                box.className = 'review-box';
+                box.innerHTML = `<div class="review-stars">★★★★★</div><div class="review-text">"${item.text}"</div><div class="review-author">${item.name}</div>`;
+                marqueeTrack.appendChild(box);
+            });
+        }
+
+        function generateFaq() {
+            const faqData = [
+                { q: "Özel yazılım geliştirme ve hazır paket kullanımı arasındaki fark nedir?", a: "Hazır paketler genel ihtiyaçlara yönelik tasarlanırken, özel yazılımlar tamamen sizin iş süreçlerinize göre sıfırdan mimari edilir. Uzun vadede maliyeti düşürür." },
+                { q: "Web sitemi veya uygulamamı sonradan farklı dillere çevirebilir miyiz?", a: "Evet. Tüm projelerimizi çoklu dil destekli altyapılarla kuruyoruz." },
+                { q: "Proje tesliminden sonra yazılımın kaynak kodları bize mi ait oluyor?", a: "Kesinlikle. Proje bedeli ödendikten sonra tüm kaynak kodları sizin mülkiyetinize geçer." }
+            ];
+            const faqContainer = document.getElementById('faq-container');
+            faqData.forEach((item, index) => {
+                const faqItem = document.createElement('div');
+                faqItem.className = 'faq-item';
+                faqItem.innerHTML = `<button class="faq-trigger" onclick="toggleFaq(${index})"><span>${item.q}</span><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg></button><div class="faq-content"><p>${item.a}</p></div>`;
+                faqContainer.appendChild(faqItem);
+            });
+        }
+
+        window.toggleFaq = function(index) { document.querySelectorAll('.faq-item')[index].classList.toggle('active'); };
+
+        window.sendContactWhatsApp = function() {
+            const msg = document.getElementById('contact-msg').value;
+            if(!msg.trim()) { alert("Lütfen bir soru yazın."); return; }
+            window.open(`https://wa.me/905437677317?text=${encodeURIComponent("Merhaba BYDMedia, web siteniz üzerinden bir sorum var: \n\n" + msg)}`, '_blank');
+        };
+
+        // ÖN SİPARİŞ
+        let selectedServiceType = "";
+        window.selectService = function(type, element) {
+            document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedServiceType = type;
+        };
+        window.nextStep = function(step) {
+            if(step === 2 && !selectedServiceType) return alert("Lütfen devam etmek için bir hizmet seçiniz.");
+            if(step === 3 && (!document.getElementById('w-name').value || !document.getElementById('w-email').value)) return alert("Lütfen gerekli alanları doldurunuz.");
+            document.querySelectorAll('.wizard-step').forEach(st => st.classList.remove('active'));
+            document.getElementById(`wizard-step-${step}`).classList.add('active');
+            document.querySelectorAll('.progress-step').forEach((dot, idx) => { if(idx < step) dot.classList.add('active'); else dot.classList.remove('active'); });
+        };
+        window.prevStep = function(step) {
+            document.querySelectorAll('.wizard-step').forEach(st => st.classList.remove('active'));
+            document.getElementById(`wizard-step-${step}`).classList.add('active');
+            document.querySelectorAll('.progress-step').forEach((dot, idx) => { if(idx < step) dot.classList.add('active'); else dot.classList.remove('active'); });
+        };
+        window.submitPreOrder = function() {
+            const details = `*Seçilen Hizmet:* ${selectedServiceType}\n*İsim:* ${document.getElementById('w-name').value}\n*Detaylar:* ${document.getElementById('w-details').value}`;
+            window.open(`https://wa.me/905437677317?text=${encodeURIComponent("*YENİ ÖN SİPARİŞ TALEBİ*\n\n" + details)}`, '_blank');
+        };
+    </script>
+</body>
+</html>
